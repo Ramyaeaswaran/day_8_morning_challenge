@@ -70,8 +70,6 @@ bool validate(int row, int column, List<List<String>> board) {
 int getColumn(String userInput) => ['A', 'B', 'C'].indexOf(userInput[0]);
 int getRow(String userInput) => ['1', '2', '3'].indexOf(userInput[1]);
 
-
-
 void printBoard(List<List<String>> board) {
   print('   A   B   C ');
   List<String> rows = board.map(rowToString).toList();
