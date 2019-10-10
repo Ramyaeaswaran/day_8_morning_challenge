@@ -1,3 +1,4 @@
+
 // Write a test case which checks the board size is 3 by 3 and is empty
 
 // Challenge 1
@@ -19,18 +20,42 @@ void main() {
     int column = getColumn(userChoice);
     if (!validate(row, column, board)) {
       print('Invalid Move');
-      continue;
-    }
-    board[row][column] = currentPlayer;
-    printBoard(board);
-    if (currentPlayer == 'X') {
-      currentPlayer = 'O';
-    } else {
-      currentPlayer = 'X';
+        continue;
+        }
+      board[row][column] = currentPlayer;
+      if(win(currentPlayer,board)){
+        print('$currentPlayer is the winner');
+        printBoard(board);
+        break;
+      }
+      printBoard(board);
+      if (currentPlayer == 'X') {
+        currentPlayer = 'O';
+      } else {
+        currentPlayer = 'X';
+      }
     }
   }
-}
 
+
+bool win(String currentPlayer,List<List<String>> board){
+  for (int i = 0; i < 3; i++) {
+    if (board[i][0] == currentPlayer && board[i][1] == currentPlayer && board[i][2] == currentPlayer) {
+      return true;
+    }
+    if (board[0][i] == currentPlayer && board[1][i] == currentPlayer &&
+        board[2][i] == currentPlayer) {
+      return true;
+    }
+  }
+    if(board[0][0] == currentPlayer && board[1][1]==currentPlayer &&board[2][2]==currentPlayer ){
+      return true;
+    }
+    if(board[0][2] == currentPlayer && board[1][1]==currentPlayer &&board[2][0]==currentPlayer ){
+      return true;
+    }
+    return false;
+  }
 // Challenge 2
 // Write a test case to see if the board is empty and of size 3 by 3
 List<List<String>> createBoard() {
@@ -38,14 +63,14 @@ List<List<String>> createBoard() {
   return List.generate(boardSize, (_) => List.filled(boardSize, ' '));
 }
 
-
 bool validate(int row, int column, List<List<String>> board) {
   return board[row][column] == ' ';
 }
 
 int getColumn(String userInput) => ['A', 'B', 'C'].indexOf(userInput[0]);
-
 int getRow(String userInput) => ['1', '2', '3'].indexOf(userInput[1]);
+
+
 
 void printBoard(List<List<String>> board) {
   print('   A   B   C ');
